@@ -4,6 +4,12 @@ A mini **clinical copilot** web app that helps clinicians quickly review a patie
 
 ---
 
+## 🌐 App Preview
+
+![Clinical Summary Assistant UI](medical.png)
+
+---
+
 ## ✨ Features
 
 - 👥 **Multi‑patient support (p1–p6)**
