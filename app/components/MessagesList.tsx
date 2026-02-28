@@ -33,11 +33,12 @@ export default function MessagesList({ messages }: Props) {
         }
 
         if (m.role === "assistant") {
-          const patient =
-            m.patientId &&
-            patients.find(
-              (p) => p.id.toLowerCase() === m.patientId.toLowerCase(),
-            );
+          // Safe lookup: if patientId is missing, patient will be undefined
+          const patient = m.patientId
+            ? patients.find(
+                (p) => p.id.toLowerCase() === m.patientId!.toLowerCase()
+              )
+            : undefined;
 
           return (
             <div
