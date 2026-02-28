@@ -10,7 +10,9 @@ export default function MessagesList() {
 
   const currentThread = threadCtx?.currentThread;
   const messages = currentThread?.messages ?? [];
-  const isLoading = currentThread?.isLoading ?? false;
+
+  // Some TamboThread types don’t expose isLoading; fall back safely.
+  const isLoading = (currentThread as any)?.isLoading ?? false;
 
   const lastPatientIdInAssistant = useMemo(() => {
     for (let i = messages.length - 1; i >= 0; i--) {
