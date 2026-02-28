@@ -11,7 +11,7 @@ export default function MessagesList() {
   const currentThread = threadCtx?.currentThread;
   const messages = currentThread?.messages ?? [];
 
-  // Some TamboThread types don’t expose isLoading; fall back safely.
+  // Safely handle isLoading – some TamboThread types don't expose it
   const isLoading = (currentThread as any)?.isLoading ?? false;
 
   const lastPatientIdInAssistant = useMemo(() => {
@@ -28,11 +28,10 @@ export default function MessagesList() {
             part.type === "text" || part.type === "assistant_message",
         );
         text =
-          textPart?.text ??
-          textPart?.content?.text ??
+          (textPart as any)?.text ??
           JSON.stringify(textPart ?? m.content);
-      } else if (m.content?.text) {
-        text = m.content.text;
+      } else if ((m as any).content?.text) {
+        text = (m as any).content.text;
       } else {
         text = JSON.stringify(m.content);
       }
@@ -74,11 +73,10 @@ export default function MessagesList() {
           } else if (Array.isArray(m.content)) {
             const part = m.content.find((p: any) => p.type === "text");
             userText =
-              part?.text ??
-              part?.content?.text ??
+              (part as any)?.text ??
               JSON.stringify(m.content);
-          } else if (m.content?.text) {
-            userText = m.content.text;
+          } else if ((m as any).content?.text) {
+            userText = (m as any).content.text;
           } else {
             userText = JSON.stringify(m.content);
           }
@@ -107,11 +105,10 @@ export default function MessagesList() {
               part.type === "text" || part.type === "assistant_message",
           );
           text =
-            textPart?.text ??
-            textPart?.content?.text ??
+            (textPart as any)?.text ??
             JSON.stringify(textPart ?? m.content);
-        } else if (m.content?.text) {
-          text = m.content.text;
+        } else if ((m as any).content?.text) {
+          text = (m as any).content.text;
         } else {
           text = JSON.stringify(m.content);
         }
